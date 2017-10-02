@@ -1,0 +1,20 @@
+resolver: nightly-2017-09-29
+
+# We don't build stackage-curator with the release candidate, it might not compile!. match-exact ensures
+# that we use the compiler from the resolver
+compiler-check: match-exact
+system-ghc: false
+
+setup-info:
+  ghc:
+    linux64:
+      8.2.1.20170929:
+        url: "https://downloads.haskell.org/~ghc/8.2.2-rc1/ghc-8.2.1.20170929-x86_64-deb8-linux.tar.xz"
+        sha1:
+
+docker:
+  enable: true
+  repo: snoyberg/stackage:nightly
+
+packages:
+  - stackage-curator

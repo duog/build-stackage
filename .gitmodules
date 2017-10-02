@@ -1,0 +1,3 @@
+[submodule "stackage-curator"]
+	path = stackage-curator
+	url = https://github.com/duog/stackage-curator
