@@ -1,5 +1,5 @@
-.stack-work
-/work
-/dist
-/dist-newstyle
-/.cabal-sandbox
+.stack-work/
+/work/
+dist/
+dist-newstyle/
+.cabal-sandbox/
