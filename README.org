@@ -8,11 +8,11 @@ small bugs, and to allow patching packages to compile with the new ghc version.
 The script run.sh builds and installs stackage-curator in a docker container
 (snoyberg/stackage:latest) with the ghc specified in this repositories
 stack.yaml. It then installs the release candidate and runs stackage-curator in
-the container. Output goes to ./work
+the container. Output goes to ./work by default.
 
 To install latest release of stack: curl -sSL https://get.haskellstack.org/ | sh
 
-Some builds fail due to missing executables, for example language-c fails due to
-missing happy. I would expect that if one let the process run to completion, and
-reran it, that those errors would be resolved on the second running.
-See [https://github.com/fpco/stackage-curator/issues/50]
+Due to [https://github.com/fpco/stackage-curator/issues/50], ghc-8.2
+nightlies will currently not work. Not to fear, we can generate our own nightly
+from https://raw.githubusercontent.com/fpco/stackage/master/build-constraints.yaml.
+This will be fine unless the resulting plan is broken.

@@ -2,23 +2,28 @@
 
 set -e
 
+# Empty means downlaad build-constraints.yaml and generate our own build plan
 BUILD_PLAN=
 
-# TODO: use these to configure whether tests/benchmarks/haddock run
+# Empty means no
 SKIP_TESTS=
 SKIP_BENCHMARKS=
 SKIP_HADDOCK=YES
 SKIP_HOOGLE=YES
-# build output (package db, logs, docs) goes here
-WORK_DIR=work
-# The compiler to test. There must be a matching entry in stack.yaml/setup-info
-TEST_COMPILER=ghc-8.2.1.20170929
-# defaults to number of processors
-JOBS=$(nproc)
-OUTPUT_FILE="${WORK_DIR}/stackage-curator-install.log"
 
 # build output (package db, logs, docs) goes here
+WORK_DIR=work
+
+# The compiler to test. There must be a matching entry in stack.yaml/setup-info
+TEST_COMPILER=ghc-8.2.1.20170929
+
+# defaults to number of processors
+JOBS=$(nproc)
+
+OUTPUT_FILE="${WORK_DIR}/stackage-curator-install.log"
+
 mkdir -p ${WORK_DIR}
+
 echo "===================="
 echo "Pulling docker image"
 echo "===================="
@@ -68,6 +73,7 @@ echo "========================================================="
 stack exec -- stackage-curator fetch --plan-file "${BUILD_PLAN}"
 
 echo "### running stackage-curator install at $(date)" >> ${OUTPUT_FILE}
+
 # run stackage-curator inside the docker image, with the release candidate ghc in the path
 stack --compiler ${TEST_COMPILER} exec --no-ghc-package-path -- stackage-curator install \
       --build-plan "${BUILD_PLAN}" \
