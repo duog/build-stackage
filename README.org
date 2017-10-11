@@ -2,17 +2,36 @@
 A shell script to build all of stackage with a ghc release candidate using
 stackage-curator.
 
+* Stackage Curator
 We use a fork at https://github.com/duog/stackage-curator in a submodule to fix
 small bugs, and to allow patching packages to compile with the new ghc version.
 
+* ./run.sh script
 The script run.sh builds and installs stackage-curator in a docker container
-(snoyberg/stackage:latest) with the ghc specified in this repositories
-stack.yaml. It then installs the release candidate and runs stackage-curator in
-the container. Output goes to ./work by default.
+(snoyberg/stackage:latest) with a standard snapshot, configured in stack.yaml.
 
-To install latest release of stack: curl -sSL https://get.haskellstack.org/ | sh
+Then a build plan is built with a release candidate ghc. That rc ghc is specified
+in run.sh, and must have a corresponding configuration in stack.yaml.
+The build plan is ./nightly-2017-10-11.unofficial.yaml by default, but can
+be changed in run.sh, or left blank to generate a build plan from
+https://raw.githubusercontent.com/fpco/stackage/master/build-constraints.yaml.
+There are several other documented configuration options in run.sh.
 
+* Create our own build plans?
 Due to [https://github.com/fpco/stackage-curator/issues/50], ghc-8.2
-nightlies will currently not work. Not to fear, we can generate our own nightly
-from https://raw.githubusercontent.com/fpco/stackage/master/build-constraints.yaml.
-This will be fine unless the resulting plan is broken.
+nightlies don't  currently not work. Not to fear, we can generate our own nightlys
+and one is included.
+
+* Patching packages
+A package <packagename>-<version> will be patches using matching files in ./patches,
+if they exist.
+
+Patches are applied from the parent directory of an unpacked package tarball with
+```
+patch -p1 -i <path-to-patch-file> -d <package-name>-<version>
+```
+
+To generate a patch file I use, from within the "old" directory:
+```
+git diff --no-index . ../<new-directory>
+```
