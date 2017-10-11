@@ -3,7 +3,7 @@
 set -e
 
 # Empty means downlaad build-constraints.yaml and generate our own build plan
-BUILD_PLAN=
+BUILD_PLAN="$(pwd)/nightly-2017-10-11.unofficial.yaml"
 
 # Empty means no
 SKIP_TESTS=
@@ -82,5 +82,6 @@ stack --compiler ${TEST_COMPILER} exec --no-ghc-package-path -- stackage-curator
       ${SKIP_TESTS:+--skip-tests} \
       ${SKIP_BENCHMARKS:+--skip-benchs} \
       ${SKIP_HOOGLE:+--skip-hoogle} \
+      --patch-dir "$(pwd)/patches" \
       --enable-executable-dynamic \
       ${WORK_DIR} 2>&1 | tee -a "${OUTPUT_FILE}"
