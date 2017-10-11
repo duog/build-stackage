@@ -1,19 +1,21 @@
---- extensible-0.4.5.orig/src/Data/Extensible/Field.hs  2017-09-27 02:14:51.000000000 -0400
-+++ extensible-0.4.5/src/Data/Extensible/Field.hs       2017-10-01 16:35:37.629565564 -0400
+diff --git a/./src/Data/Extensible/Field.hs b/../extensible-0.4.5-new/src/Data/Extensible/Field.hs
+index c0871f1..3ce57a5 100644
+--- a/./src/Data/Extensible/Field.hs
++++ b/../extensible-0.4.5-new/src/Data/Extensible/Field.hs
 @@ -1,3 +1,4 @@
 +{-# LANGUAGE TypeInType #-}
  {-# LANGUAGE MultiParamTypeClasses, UndecidableInstances #-}
  {-# LANGUAGE StandaloneDeriving #-}
  {-# LANGUAGE ScopedTypeVariables, TypeFamilies #-}
-@@ -44,6 +45,7 @@
-	 , Labelling
-	 , Inextensible
-	 ) where
+@@ -44,6 +45,7 @@ module Data.Extensible.Field (
+   , Labelling
+   , Inextensible
+   ) where
 +import Data.Kind (type (*))
  import Control.DeepSeq (NFData)
  import Data.Coerce
  import Data.Extensible.Class
-@@ -60,7 +62,7 @@
+@@ -60,7 +62,7 @@ import Data.Semigroup
  import Data.Typeable (Typeable)
  import Foreign.Storable (Storable)
  import GHC.Generics (Generic)
